@@ -1,0 +1,2581 @@
+{
+	"info": {
+		"_postman_id": "eeac9d9e-68c2-4fb6-a423-9e9939e8afd4",
+		"name": "JSON_PlaceHolder_API_Testing",
+		"description": "A collection created to practice API testing, based on the JSON Placeholder, a free API with fake data.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30544653",
+		"_collection_link": "https://interstellar-station-827226.postman.co/workspace/LearnApiTesting~5ebc7bbd-126a-493d-affe-7df48f558c75/collection/30544653-eeac9d9e-68c2-4fb6-a423-9e9939e8afd4?action=share&source=collection_link&creator=30544653"
+	},
+	"item": [
+		{
+			"name": "TC_00_Connections",
+			"item": [
+				{
+					"name": "Users_Connection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Connection to users - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todo_Connection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Connection to ToDo - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Albums_Connection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Connection to Albums - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Photos_Connection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Connection to Photos - OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments_Connection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Connection to Comments- OK\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## Test case:\n\n1. Check connection to Users\n2. Check connection to ToDo\n3. Check connection to Album\n4. Check connection to Photo\n5. Check connection to Comments"
+		},
+		{
+			"name": "TC_01_Add_Delete_New_User",
+			"item": [
+				{
+					"name": "Add_New_User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check POST success\r",
+									"pm.test(\"POST Request success\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is Created\r",
+									"pm.test(\"Status code name has String\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"// Check Location exists\r",
+									"pm.test(\"Header Location is present\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"});\r",
+									"\r",
+									"//Check content of location is okay\r",
+									"pm.test(\"Content of Header Location is validate\", function () {\r",
+									"   pm.expect(pm.response.headers.get(\"Location\")).to.eql(\"http://jsonplaceholder.typicode.com/users//11\");\r",
+									"});;\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedData = {\r",
+									"    \"id\": 11,\r",
+									"    \"name\": \"John Kowalski\",\r",
+									"    \"username\": \"jkowal\",\r",
+									"    \"email\": \"jkowal@april.biz\",\r",
+									"    \"address\": {\r",
+									"        \"street\": \"Sample\",\r",
+									"        \"suite\": \"Apt. 21\",\r",
+									"        \"city\": \"Central City\",\r",
+									"        \"zipcode\": \"1234-2123\",\r",
+									"        \"geo\": {\r",
+									"            \"lat\": \"-33.5215\",\r",
+									"            \"lng\": \"12.3457\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"phone\": \"123456789 +48\",\r",
+									"    \"website\": \"nowebsite.org\",\r",
+									"    \"company\": {\r",
+									"        \"name\": \"Big Factory\",\r",
+									"        \"catchPhrase\": \"I don't know what I am doing.\",\r",
+									"        \"bs\": \"Do nothing.\"\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData).to.eql(expectedData);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 11,\r\n    \"name\": \"John Kowalski\",\r\n    \"username\": \"jkowal\",\r\n    \"email\": \"jkowal@april.biz\",\r\n    \"address\": {\r\n        \"street\": \"Sample\",\r\n        \"suite\": \"Apt. 21\",\r\n        \"city\": \"Central City\",\r\n        \"zipcode\": \"1234-2123\",\r\n        \"geo\": {\r\n            \"lat\": \"-33.5215\",\r\n            \"lng\": \"12.3457\"\r\n        }\r\n    },\r\n    \"phone\": \"123456789 +48\",\r\n    \"website\": \"nowebsite.org\",\r\n    \"company\": {\r\n        \"name\": \"Big Factory\",\r\n        \"catchPhrase\": \"I don't know what I am doing.\",\r\n        \"bs\": \"Do nothing.\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_User_Exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if users exists\r",
+									"\r",
+									"pm.test(\"User exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/5",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_New_User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check Status Code\r",
+									"pm.test(\"User deleted\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"Ok\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/11",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_If_Deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if users do not exists\r",
+									"pm.test(\"User do not exists\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/11",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Create new user.\n2. Get data of new user.\n3. Delete new user.\n4. Check if new user got deleted.\n    \n\n## Test Data:\n\n```\n{ \"id\": 11, \"name\": \"John Kowalski\", \"username\": \"jkowal\", \"email\": \"jkowal@april.biz\", \"address\": { \"street\": \"Sample\", \"suite\": \"Apt. 21\", \"city\": \"Central City\", \"zipcode\": \"1234-2123\", \"geo\": { \"lat\": \"-33.5215\", \"lng\": \"12.3457\" } }, \"phone\": \"123456789 +48\", \"website\": \"nowebsite.org\", \"company\": { \"name\": \"Big Factory\", \"catchPhrase\": \"I don't know what I am doing.\", \"bs\": \"do nothing.\" } \n\n ```"
+		},
+		{
+			"name": "TC_02_Update_User",
+			"item": [
+				{
+					"name": "Update_User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if user was patched\r",
+									"pm.test(\"User patched\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedName = \"Testing\";\r",
+									"var expectedStreet = \"Avenue 12\";\r",
+									"var expectedCompanyName = \"Testing Company\";\r",
+									"\r",
+									"pm.test('Name has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.name).to.equal(expectedName);\r",
+									"});\r",
+									"\r",
+									"pm.test('Street has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.address.street).to.equal(expectedStreet);\r",
+									"});\r",
+									"\r",
+									"pm.test('Company name has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.company.name).to.equal(expectedCompanyName);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Testing\",\r\n    \"address\": {\r\n        \"street\": \"Avenue 12\"\r\n    },\r\n    \"company\": {\r\n        \"name\": \"Testing Company\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/8",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_User_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if user exists\r",
+									"pm.test(\"User exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedName = \"Testing\";\r",
+									"var expectedStreet = \"Avenue 12\";\r",
+									"var expectedCompanyName = \"Testing Company\";\r",
+									"\r",
+									"pm.test('Name has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.name).to.equal(expectedName);\r",
+									"});\r",
+									"\r",
+									"pm.test('Street has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.address.street).to.equal(expectedStreet);\r",
+									"});\r",
+									"\r",
+									"pm.test('Company name has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.company.name).to.equal(expectedCompanyName);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/8",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Patch data of existing user.\n2. Get data of user.\n    \n\n## **Test Data:**\n\nReplace Name, Street, Company name of user ID 8.\n\nName = \"Testing\"\n\nStreet = \"Avenue 12\"\n\nCompany name = \"Testing Company\""
+		},
+		{
+			"name": "TC_03_Put_New_Data_In_User",
+			"item": [
+				{
+					"name": "Put_New_Data_In_User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if user is updated\r",
+									"pm.test(\"User updated\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedData = {\r",
+									"    \"id\": 5,\r",
+									"    \"name\": \"Testing Course\",\r",
+									"    \"username\": \"tcourse\",\r",
+									"    \"email\": \"tcourse@annie.ca\",\r",
+									"    \"address\": {\r",
+									"        \"street\": \"Testing Street\",\r",
+									"        \"suite\": \"Penthouse 5\",\r",
+									"        \"city\": \"Selenium\",\r",
+									"        \"zipcode\": \"1233-12\",\r",
+									"        \"geo\": {\r",
+									"            \"lat\": \"51.2345\",\r",
+									"            \"lng\": \"-3.4231\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"phone\": \"123456789\",\r",
+									"    \"website\": \"imonlytesting.com\",\r",
+									"    \"company\": {\r",
+									"        \"name\": \"KoMpany\",\r",
+									"        \"catchPhrase\": \"I love Manchester City.\",\r",
+									"        \"bs\": \"Please don't sell Halland.\"\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData).to.eql(expectedData);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"name\": \"Testing Course\",\r\n    \"username\": \"tcourse\",\r\n    \"email\": \"tcourse@annie.ca\",\r\n    \"address\": {\r\n        \"street\": \"Testing Street\",\r\n        \"suite\": \"Penthouse 5\",\r\n        \"city\": \"Selenium\",\r\n        \"zipcode\": \"1233-12\",\r\n        \"geo\": {\r\n            \"lat\": \"51.2345\",\r\n            \"lng\": \"-3.4231\"\r\n        }\r\n    },\r\n    \"phone\": \"123456789\",\r\n    \"website\": \"imonlytesting.com\",\r\n    \"company\": {\r\n        \"name\": \"KoMpany\",\r\n        \"catchPhrase\": \"I love Manchester City.\",\r\n        \"bs\": \"Please don't sell Halland.\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/5",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_User_New_Data_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if user exists\r",
+									"pm.test(\"User exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedData = {\r",
+									"    \"id\": 5,\r",
+									"    \"name\": \"Testing Course\",\r",
+									"    \"username\": \"tcourse\",\r",
+									"    \"email\": \"tcourse@annie.ca\",\r",
+									"    \"address\": {\r",
+									"        \"street\": \"Testing Street\",\r",
+									"        \"suite\": \"Penthouse 5\",\r",
+									"        \"city\": \"Selenium\",\r",
+									"        \"zipcode\": \"1233-12\",\r",
+									"        \"geo\": {\r",
+									"            \"lat\": \"51.2345\",\r",
+									"            \"lng\": \"-3.4231\"\r",
+									"        }\r",
+									"    },\r",
+									"    \"phone\": \"123456789\",\r",
+									"    \"website\": \"imonlytesting.com\",\r",
+									"    \"company\": {\r",
+									"        \"name\": \"KoMpany\",\r",
+									"        \"catchPhrase\": \"I love Manchester City.\",\r",
+									"        \"bs\": \"Please don't sell Halland.\"\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData).to.eql(expectedData);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/5",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. **PUT** new data in user.\n2. Get data of new user.\n    \n\n## Test Data:\n\nPUT new data in user ID = 5\n\n```\n{ \"id\": 5, \"name\": \"Testing Course\", \"username\": \"tcourse\", \"email\": \"tcourse@annie.ca\", \"address\": { \"street\": \"Testing Street\", \"suite\": \"Penthouse 5\", \"city\": \"Selenium\", \"zipcode\": \"1233-12\", \"geo\": { \"lat\": \"51.2345\", \"lng\": \"-3.4231\" } }, \"phone\": \"123456789\", \"website\": \"imonlytesting.com\", \"company\": { \"name\": \"KoMpany\", \"catchPhrase\": \"I love Manchester City.\", \"bs\": \"Please don't sell Halland.\" }\n\n ```"
+		},
+		{
+			"name": "TC_04_Add_Delete_New_Todos_To_User",
+			"item": [
+				{
+					"name": "Add_New_ToDos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check POST success\r",
+									"pm.test(\"POST Request success\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is Created\r",
+									"pm.test(\"Status code name has String\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"// Check Location exists\r",
+									"pm.test(\"Header Location is present\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"});\r",
+									"\r",
+									"//Check content of location is okay\r",
+									"pm.test(\"Content of Header Location is validate\", function () {\r",
+									"   pm.expect(pm.response.headers.get(\"Location\")).to.include(\"http://jsonplaceholder.typicode.com/user/1/todos/\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('ID exists in the response', function () {\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.userId).to.be.equal(\"1\");\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"lorem ipsum\")\r",
+									"    pm.expect(jsonData.completed).to.be.equal(true);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"// The ID of ToDo is is automatically incremented, so i fetch id from this request, to put it in GET request\r",
+									"var newID = jsonData.id;\r",
+									"pm.environment.set(\"TC_04_ID\", newID);\r",
+									"console.log(newID)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"userId\": 1,\r\n        \"id\": 1,\r\n        \"title\": \"lorem ipsum\",\r\n        \"completed\": true\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/user/1/todos",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"user",
+								"1",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_Todo_Exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if ToDo exists\r",
+									"pm.test(\"User exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    var expectedId = pm.environment.get(\"TC_04_ID\");\r",
+									"    pm.expect(jsonData.id).to.be.equal(expectedId);\r",
+									"    pm.expect(jsonData.userId).to.be.equal(\"1\");\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"lorem ipsum\")\r",
+									"    pm.expect(jsonData.completed).to.be.equal(true);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos/{{TC_04_ID}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos",
+								"{{TC_04_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_New_ToDo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check Status Code\r",
+									"pm.test(\"Todo deleted\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/user/1/todos/{{TC_04_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"user",
+								"1",
+								"todos",
+								"{{TC_04_ID}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_If_Deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if ToDo do not exists\r",
+									"pm.test(\"ToDo do not exists\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/user/1/todos/{{TC_04_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"user",
+								"1",
+								"todos",
+								"{{TC_04_ID}}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Add new Todos to User\n2. Get Data of todos\n3. Delete todos\n4. Check if it got deleted.\n    \n\n## **Test Data**\n\nAdd new ToDo to user id = 1\n\n## Additional Info:\n\nId of ToDo is updated automatically, just pass id = 1\n\n```\n{ \"userId\": \"1\", \"id\": 1, \"title\": \"lorem ipsum\", \"completed\": true}\n\n ```"
+		},
+		{
+			"name": "TC_05_Update_ToDo",
+			"item": [
+				{
+					"name": "Update_ToDo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if ToDo was patched\r",
+									"pm.test(\"Todo patched\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedTitle = \"ipsum lorem\";\r",
+									"var expectedCompleted = false;\r",
+									"\r",
+									"pm.test('Title has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);\r",
+									"});\r",
+									"\r",
+									"pm.test('Completed has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.completed).to.equal(expectedCompleted);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"id\": 10,\r\n    \"title\": \"ipsum lorem\",\r\n    \"completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos/10",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_ToDo_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if ToDo exists\r",
+									"pm.test(\"ToDo exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedTitle = \"ipsum lorem\";\r",
+									"var expectedCompleted = false;\r",
+									"\r",
+									"pm.test('Title has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);\r",
+									"});\r",
+									"\r",
+									"pm.test('Completed has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.completed).to.equal(expectedCompleted);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos/10",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Patch existing ToDo\n2. Get data from updated ToDo\n    \n\n## **Test Data:**\n\nPatch ToDo to id = 10\n\n```\n{ \"userId\": \"1\", \"id\": 10, \"title\": \"impsum lorem\", \"completed\": true }\n\n ```"
+		},
+		{
+			"name": "TC_06_Put_New_Data_In_Todo",
+			"item": [
+				{
+					"name": "Put_New_Data_In_ToDo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if ToDo was updated\r",
+									"pm.test(\"ToDo updated\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.userId).to.be.equal(\"1\");\r",
+									"    pm.expect(jsonData.id).to.be.equal(\"6\");\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"testing this shit\")\r",
+									"    pm.expect(jsonData.completed).to.be.equal(false);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"1\",\r\n    \"id\": 6,\r\n    \"title\": \"testing this shit\",\r\n    \"completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos/6",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_New_Data_ToDo_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if ToDo exists\r",
+									"pm.test(\"ToDo exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.userId).to.be.equal(1);\r",
+									"    pm.expect(jsonData.id).to.be.equal(6);\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"testing this shit\")\r",
+									"    pm.expect(jsonData.completed).to.be.equal(false);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos/6",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Put new data in existing ToDo\n2. Get data from updated ToDo\n    \n\n## **Test Data:**\n\nPatch ToDo to id = 6\n\n```\n{ \"userId\": \"1\", \"id\": 10, \"title\": \"impsum lorem\", \"completed\": true }\n\n ```"
+		},
+		{
+			"name": "TC_07_Add_Delete_New_Album_To_User",
+			"item": [
+				{
+					"name": "Add_New_Album",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check POST success\r",
+									"pm.test(\"POST Request success\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is Created\r",
+									"pm.test(\"Status code name has String\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"// Check Location exists\r",
+									"pm.test(\"Header Location is present\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"});\r",
+									"\r",
+									"//Check content of location is okay\r",
+									"pm.test(\"Content of Header Location is validate\", function () {\r",
+									"   pm.expect(pm.response.headers.get(\"Location\")).to.include(\"http://jsonplaceholder.typicode.com/user/3/albums\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('ID exists in the response', function () {\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.userId).to.be.equal(\"3\");\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"im a tester!\")\r",
+									"});\r",
+									"\r",
+									"\r",
+									"// The ID of Album is is automatically incremented, so i fetch id from this request, to put it in GET request\r",
+									"var newID = jsonData.id;\r",
+									"pm.environment.set(\"TC_07_ID\", newID);\r",
+									"console.log(newID)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 3,\r\n        \"id\": 1,\r\n        \"title\": \"im a tester!\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/user/3/albums",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"user",
+								"3",
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_Album_Exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Album exists\r",
+									"pm.test(\"Album exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    var expectedId = pm.environment.get(\"TC_07_ID\");\r",
+									"    pm.expect(jsonData.id).to.be.equal(expectedId);\r",
+									"    pm.expect(jsonData.userId).to.be.equal(\"3\");\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"im a tester!\")\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/{{TC_07_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"{{TC_07_ID}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_New_Album",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check Status Code\r",
+									"pm.test(\"Album deleted\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/{{TC_07_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"{{TC_07_ID}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_If_Deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Album do not exists\r",
+									"pm.test(\"Album do not exists\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/{{TC_07_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"{{TC_07_ID}}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Add new album to user\n2. Get data of new album\n3. Delete newly create album.\n4. Check if new got deleted.\n    \n\n## Test Data:\n\nAdd new album to user with ID 3.\n\n```\n{        \"userId\": 3,        \"id\": 1,        \"title\": \"im a tester!\"    }\n\n ```"
+		},
+		{
+			"name": "TC_08_Update_Album",
+			"item": [
+				{
+					"name": "Update_Album",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Album was patched\r",
+									"pm.test(\"Album patched\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedTitle = \"trying to test this.\"\r",
+									"\r",
+									"pm.test('Title has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n\r\n        \"title\": \"trying to test this.\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/21",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_Album_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Album exists\r",
+									"pm.test(\"Album exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var expectedTitle = \"trying to test this.\"\r",
+									"\r",
+									"pm.test('Title has been updated correctly', function () {\r",
+									"    pm.expect(jsonData.title).to.equal(expectedTitle);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/21",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"21"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Patch data of existing album.\n    \n2. Get data of album.\n    \n\n## **Test Data:**\n\nReplace at userId = 3, id = 21, title to = \"trying to test\""
+		},
+		{
+			"name": "TC_09_Put_New_Data_In_Album",
+			"item": [
+				{
+					"name": "Put_New_Data_In_Album",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Album was updated\r",
+									"pm.test(\"Album updated\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.userId).to.be.equal(3);\r",
+									"    pm.expect(jsonData.id).to.be.equal(21);\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"im a tester!\")\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 3,\r\n        \"id\": 21,\r\n        \"title\": \"im a tester!\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/21",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_New_Data_Album_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Album exists\r",
+									"pm.test(\"Album exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.userId).to.be.equal(1);\r",
+									"    pm.expect(jsonData.id).to.be.equal(6);\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"im a tester!\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/albums/21",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"albums",
+								"21"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. **PUT** new data in existing album.\n2. Get data of new album.\n    \n\n## Test Data:\n\nPUT new data in album with User Id=3, Album id=21\n\n```\n{   \"userId\": 3,   \"id\": 21,   \"title\": \"im a tester!\"   }\n\n ```"
+		},
+		{
+			"name": "TC_10_Add_Delete_New_Photo",
+			"item": [
+				{
+					"name": "Add_New_Photo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Status is Created\r",
+									"pm.test(\"Status code name has String\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"// Check Location exists\r",
+									"pm.test(\"Header Location is present\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"});\r",
+									"\r",
+									"//Check content of location is okay\r",
+									"pm.test(\"Content of Header Location is validate\", function () {\r",
+									"   pm.expect(pm.response.headers.get(\"Location\")).to.include(\"http://jsonplaceholder.typicode.com/photos?albumID=1\");\r",
+									"});;\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('ID exists in the response', function () {\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.albumId).to.be.equal(1);\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"lorem ipsum\");\r",
+									"    pm.expect(jsonData.url).to.be.equal(\"https://via.placeholder.com/600/92c952Abv\");\r",
+									"    pm.expect(jsonData.thumbnailUrl).to.be.equal(\"https://via.placeholder.com/130/942az952\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"// The ID of photo is is automatically incremented, so i fetch id from this request, to put it in GET request\r",
+									"var newID = jsonData.id;\r",
+									"pm.environment.set(\"TC_10_ID\", newID);\r",
+									"console.log(newID)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"albumId\": 1,\r\n        \"id\": 1,\r\n        \"title\": \"lorem ipsum\",\r\n        \"url\": \"https://via.placeholder.com/600/92c952Abv\",\r\n        \"thumbnailUrl\": \"https://via.placeholder.com/130/942az952\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos?albumID=1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos"
+							],
+							"query": [
+								{
+									"key": "albumID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_Photo_Exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if photo exists\r",
+									"pm.test(\"Photo exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/{{TC_10_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"{{TC_10_ID}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_New_Photo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check Status Code\r",
+									"pm.test(\"Photo Deleted\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/{{TC_10_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"{{TC_10_ID}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_If_Deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if photo do not exists\r",
+									"pm.test(\"Photo do not exists\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/{{TC_10_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"{{TC_10_ID}}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Create new photo.\n2. Get data of new photo.\n3. Delete new photo.\n4. Check if new photo got deleted.\n    \n\n## Test Data:\n\nFor this TC, add header to request AlbumId = 1."
+		},
+		{
+			"name": "TC_11_Update_Photo",
+			"item": [
+				{
+					"name": "Update_Photo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Photo patched\r",
+									"pm.test(\"Photo patched\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.url).to.be.equal(\"https://via.placeholder.com/600/109.3254\")\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"ispum lorem\")\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n        \"title\": \"ispum lorem\",\r\n        \"url\": \"https://via.placeholder.com/600/109.3254\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_Photo_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Photo exists\r",
+									"pm.test(\"Photo exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.albumId).to.be.equal(1);\r",
+									"    pm.expect(jsonData.id).to.be.equal(1);\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"ipsum lorem\");\r",
+									"    pm.expect(jsonData.url).to.be.equal(\"https://via.placeholder.com/600/109.3254\");\r",
+									"    pm.expect(jsonData.thumbnailUrl).to.be.equal(\"https://via.placeholder.com/150/92c952\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Patch data of existing photo.\n2. Get data of photo.\n    \n\n## **Test Data:**\n\nUse photo with albumID = 1. and id = 1\n\nReplace title to \"ipsum lorem\"  \nReplace url to [https://via.placeholder.com/600/109.3254<br><br>](https://via.placeholder.com/600/92c952)\n\n```\n{\n\"title\": \"ispum lorem\", \"url\": \"https://via.placeholder.com/600/109.3254\"\n}\n\n ```"
+		},
+		{
+			"name": "TC_12_Put_New_Data_In_Photo",
+			"item": [
+				{
+					"name": "Put_New_Data_In_Todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Photo updated\r",
+									"pm.test(\"Photo updated\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.albumId).to.be.equal(2);\r",
+									"    pm.expect(jsonData.id).to.be.equal(6);\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"lorem ipsum lorem\")\r",
+									"    pm.expect(jsonData.url).to.be.equal(\"lorem ipsum lorem\");\r",
+									"    pm.expect(jsonData.thumbnailUrl).to.be.equal(\"lorem ipsum lorem\")\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n    \"albumId\": 2,\r\n    \"id\": 6,\r\n    \"title\": \"lorem ipsum lorem\",\r\n    \"url\": \"lorem ipsum lorem\",\r\n    \"thumbnailUrl\": \"lorem ipsum lorem\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/6",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_New_Data_Photo_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Photo exists\r",
+									"pm.test(\"Photo exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.userId).to.be.equal(2);\r",
+									"    pm.expect(jsonData.id).to.be.equal(6);\r",
+									"    pm.expect(jsonData.title).to.be.equal(\"lorem ipsum lorem\");\r",
+									"    pm.expect(jsonData.url).to.be.equal(\"lorem ipsum lorem\");\r",
+									"    pm.expect(json.Data.thumbnailUrl).to.be.equal(\"lorem ipsum lorem\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/photos/6",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"photos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Put new data in existing photo.\n2. Get data from updated photo.\n    \n\n## **Test Data:**\n\nPatch photo id = 6\n\n``` json\n    {\n    \"albumId\": 2,\n    \"id\": 6,\n    \"title\": \"lorem ipsum lorem\",\n    \"url\": \"lorem ipsum lorem\",\n    \"thumbnailUrl\": \"lorem ipsum lorem\"\n},\n\n ```"
+		},
+		{
+			"name": "TC_13_Add_Delete_New_Comment",
+			"item": [
+				{
+					"name": "Add_New_Comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Status is Created\r",
+									"pm.test(\"Status code name has String\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"// Check Location exists\r",
+									"pm.test(\"Header Location is present\", function () {\r",
+									"    pm.response.to.have.header(\"Location\");\r",
+									"});\r",
+									"\r",
+									"//Check content of location is okay\r",
+									"pm.test(\"Content of Header Location is validate\", function () {\r",
+									"   pm.expect(pm.response.headers.get(\"Location\")).to.include(\"http://jsonplaceholder.typicode.com/comments?postId=2\");\r",
+									"});;\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('ID exists in the response', function () {\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.postId).to.be.equal(2);\r",
+									"    pm.expect(jsonData.name).to.be.equal(\"testing\");\r",
+									"    pm.expect(jsonData.email).to.be.equal(\"tcourse@annie\");\r",
+									"    pm.expect(jsonData.body).to.be.equal(\"lorem ipsum\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"// The ID of photo is is automatically incremented, so i fetch id from this request, to put it in GET request\r",
+									"var newID = jsonData.id;\r",
+									"pm.environment.set(\"TC_13_ID\", newID);\r",
+									"console.log(newID)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"postId\": 2,\r\n        \"id\": 1,\r\n        \"name\": \"testing\",\r\n        \"email\": \"tcourse@annie\",\r\n        \"body\": \"lorem ipsum\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments?postId=2",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_Comment_Exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if comment exists\r",
+									"pm.test(\"Comment exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments/{{TC_13_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments",
+								"{{TC_13_ID}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_New_Comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check Status Code\r",
+									"pm.test(\"Comment is deleted\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments/{{TC_13_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments",
+								"{{TC_13_ID}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check_If_Deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if comment do not exists\r",
+									"pm.test(\"Comment do not exists\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments/{{TC_13_ID}}}",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments",
+								"{{TC_13_ID}}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Create new comment.\n2. Get data of new comment..\n3. Delete new comment.\n4. Check if new comment got deleted.\n    \n\n## Test Data:  \n\nAdd header postId=2 to request\n\n``` json\n{\n        \"postId\": 2,\n        \"id\": 1,\n        \"name\": \"testing\",\n        \"email\": \"tcourse@annie\",\n        \"body\": \"lorem ipsum\"\n    }\n\n ```"
+		},
+		{
+			"name": "TC_14_Update_Comment",
+			"item": [
+				{
+					"name": "Update_Comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Comment was updated\r",
+									"pm.test(\"Comment patched\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.name).to.be.equal(\"testing\");\r",
+									"    pm.expect(jsonData.email).to.be.equal(\"tcourse@annie\");\r",
+									"    pm.expect(jsonData.body).to.be.equal(\"lorem ipsum\")\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"testing\",\r\n        \"email\": \"tcourse@annie\",\r\n        \"body\": \"lorem ipsum\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments/3",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_Comment_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if comment exists\r",
+									"pm.test(\"Comment exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.postId).to.be.equal(1);\r",
+									"    pm.expect(jsonData.id).to.be.equal(3);\r",
+									"    pm.expect(jsonData.name).to.be.equal(\"testing\");\r",
+									"    pm.expect(jsonData.email).to.be.equal(\"tcourse@annie\");\r",
+									"    pm.expect(jsonData.body).to.be.equal(\"lorem ipsum\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments/3",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "StartFragment\n\n## **Test Steps:**\n\n1. Patch data of existing comment.\n2. Get data of comment.\n    \n\n## **Test Data:**\n\nPatch comment of id = 3\n\n``` json\n {\n\n        \"name\": \"testing\",\n        \"email\": \"tcourse@annie\",\n        \"body\": \"lorem ipsum\"\n    }\n\n ```"
+		},
+		{
+			"name": "TC_15_Put_New_Data_In_Comment",
+			"item": [
+				{
+					"name": "Put_New_Data_In_Comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Commnet was updated\r",
+									"pm.test(\"Comment was updated\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.postId).to.be.equal(5);\r",
+									"    pm.expect(jsonData.id).to.be.equal(21);\r",
+									"    pm.expect(jsonData.name).to.be.equal(\"testing\")\r",
+									"    pm.expect(jsonData.email).to.be.equal(\"tcourse@annie\");\r",
+									"    pm.expect(jsonData.body).to.be.equal(\"lorem ipsum\")\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"postId\": 5,\r\n    \"id\": 21,\r\n    \"name\": \"testing\",\r\n        \"email\": \"tcourse@annie\",\r\n        \"body\": \"lorem ipsum\"\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments/21",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify_New_Data_Comment_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Check if Comment exists\r",
+									"pm.test(\"Comment exists\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Check if Status is OK\r",
+									"pm.test(\"Status code name is OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"// JSON tiny validator\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test('Response data matches expected data', function () {\r",
+									"    pm.expect(jsonData.postId).to.be.equal(5);\r",
+									"    pm.expect(jsonData.id).to.be.equal(21);\r",
+									"    pm.expect(jsonData.name).to.be.equal(\"testing\")\r",
+									"    pm.expect(jsonData.email).to.be.equal(\"tcourse@annie\");\r",
+									"    pm.expect(jsonData.body).to.be.equal(\"lorem ipsum\")\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/comments/21",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"comments",
+								"21"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## **Test Steps:**\n\n1. Put new data in existing comment.\n2. Get data from updated comment.\n    \n\n## Test Data:\n\nUpdate comment of id = 21\n\n``` json\n \n{\n    \"postId\": 5,\n    \"id\": 21,\n    \"name\": \"testing\",\n        \"email\": \"tcourse@annie\",\n        \"body\": \"lorem ipsum\"\n\n}\n  \n\n ```"
+		},
+		{
+			"name": "TC_16_Negative_Get_Case",
+			"item": [
+				{
+					"name": "TNC_01_GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"TNC_01 - Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/users/0321",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"users",
+								"0321"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## Test Case:\n\n1. Run GET with wrong parameter\n    \n2. Run PUT with wrong JSON data\n    \n3. Run Patch with wrong JSON data"
+		}
+	]
+}
