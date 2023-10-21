@@ -1,5 +1,6 @@
 # API-Testing-JSONPlaceholder
-Test cases written in practice using the free JSONPlaceholder API
+Test cases written in practice using the free JSONPlaceholder API and <br>
+![POSTMAN](https://skillicons.dev/icons?i=postman) 
 
 
 As part of my learning, I created basic test scenarios based on the JSONPlaceholder API. These include handling PUT, POST, GET, DELETE and PATCH queries across multiple resources, also using JavaScript-written tests to automatically validate query results, or to write needed variables to the environment.
